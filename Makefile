@@ -92,7 +92,7 @@ rootfs/tetris: $(CC)
 rootfs/perf: $(CC)
 	make -C Splash-3/codes all
 	mkdir -p $@
-	cp -r ../../Splash-3 $@/splash3
+	cp -r Splash-3 $@/splash3
 
 $(RISCV)/vmlinux: $(buildroot_defconfig) $(linux_defconfig) $(busybox_defconfig) $(CC) rootfs/cachetest.elf rootfs/tetris rootfs/perf
 	mkdir -p $(RISCV)
@@ -159,6 +159,7 @@ images: $(CC) $(RISCV)/fw_payload.bin $(RISCV)/uImage
 clean:
 	rm -rf $(RISCV)/vmlinux cachetest/*.elf rootfs/tetris rootfs/cachetest.elf rootfs/perf
 	rm -rf $(RISCV)/fw_payload.bin $(RISCV)/uImage $(RISCV)/Image.gz
+	make -C Splash-3/codes clean
 	make -C u-boot clean
 	make -C opensbi distclean
 
