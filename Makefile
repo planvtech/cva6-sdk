@@ -6,7 +6,7 @@ RISCV    := $(PWD)/install$(XLEN)
 DEST     := $(abspath $(RISCV))
 PATH     := $(DEST)/bin:$(PATH)
 
-TOOLCHAIN_PREFIX := $(ROOT)/buildroot/output/host/bin/riscv$(XLEN)-buildroot-linux-gnu-
+export TOOLCHAIN_PREFIX := $(ROOT)/buildroot/output/host/bin/riscv$(XLEN)-buildroot-linux-gnu-
 CC          := $(TOOLCHAIN_PREFIX)gcc
 OBJCOPY     := $(TOOLCHAIN_PREFIX)objcopy
 MKIMAGE     := u-boot/tools/mkimage
@@ -89,7 +89,8 @@ rootfs/tetris: $(CC)
 	cp ./vitetris/tetris $@
 
 # performance tests
-rootfs/perf:
+rootfs/perf: $(CC)
+	make -C Splash-3/codes all
 	mkdir -p $@
 	cp -r ../../Splash-3 $@/splash3
 
